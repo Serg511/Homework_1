@@ -1,0 +1,21 @@
+- hosts: all
+  gather_facts: no
+  tasks:
+    - name: Wait 600 seconds for target connection to become reachable/usable
+      wait_for_connection:
+
+- name: Install Nginx
+  hosts: all
+  become: true
+  tasks:
+    - name: Update all packages
+      apt:
+        update_cache: yes
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: latest
+    - name: Enable Nginx
+      service:
+        name: nginx
+        enabled: yes
